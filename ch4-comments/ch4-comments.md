@@ -7,6 +7,68 @@
 * [References](#References)
 ---
 ## Good Comments
+ 2.54 KB
+
+ 
+If our programming languages were expressive enough, or if we had the talent to subtly wield those languages to express our intent, we would not need comments very much—perhaps not at all.
+ 
+### Comments Do Not Make Up for Bad Code
+ 
+Clear and expressive code with few comments is far superior to cluttered and complex code with lots of comments. Rather than spend your time writing the comments that explain the mess you’ve made, spend it cleaning that mess.
+ 
+### Explain Yourself in Code
+ 
+```java
+// Check to see if the employee is eligible for full benefits
+if ((employee.flags & HOURLY_FLAG) && (employee.age > 65))
+```
+ 
+vs
+ 
+```java
+if (employee.isEligibleForFullBenefits())
+```
+ 
+### Good Comments
+ 
+Some comments are necessary or beneficial. However the only truly good comment is the comment you found a way not to write.
+ 
+#### Legal Comments
+ 
+Sometimes our corporate coding standards force us to write certain comments for legal reasons. For example, copyright and authorship statements are necessary and reasonable things to put into a comment at the start of each source file.
+ 
+#### Informative Comments
+ 
+It is sometimes useful to provide basic information with a comment. For example, consider this comment that explains the return value of an abstract method:
+ 
+```java
+// Returns an instance of the Responder being tested.
+protected abstract Responder responderInstance();
+```
+ 
+A comment like this can sometimes be useful, but it is better to use the name of the function to convey the information where possible. For example, in this case the comment could be made redundant by renaming the function: `responderBeingTested`.
+ 
+#### Explanation of Intent
+ 
+Sometimes a comment goes beyond just useful information about the implementation and provides the intent behind a decision. Example:
+ 
+```java
+public int compareTo(Object o)
+{
+  if(o instanceof WikiPagePath)
+  {
+    WikiPagePath p = (WikiPagePath) o;
+    String compressedName = StringUtil.join(names, "");
+    String compressedArgumentName = StringUtil.join(p.names, "");
+    return compressedName.compareTo(compressedArgumentName);
+  }
+  return 1; // we are greater because we are the right type.
+}
+```
+ 
+#### Clarification
+ 
+Sometimes it is just helpful to translate the meaning of some obscure argument or return value into something that's readable. In general it is better to find a way to make that argument or return value clear in its own right; but when its part of the standard library, or in code that you cannot alter, then a helpful clarifying comment can be useful.
 ---
 
 ## Bad Comments
