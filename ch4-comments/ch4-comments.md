@@ -50,12 +50,11 @@ public void loadProperties()
 > Code never lies, comments do sometimes
 
 > Comments should desribe what your code **actualy** do, but not what you **wish** your code to do.
-```java
 
 
 ### Mandated Comments
 > Do not add a comment for each function or  variable. If they do not need commenting, leave them uncommented.
-
+```java
 /**
     * 
     * @param title The title of the CD
@@ -134,6 +133,79 @@ require('./bootstrap-amd').load('vs/code/node/cli');
 ```
 
 ---
+# Don't use a comment when you can use a function or a variable
+
+Consider the following stretch of code:
+```java
+// does the module from the global list <mod> depend on the
+// subsystem we are part of?
+if (smodule.getDependSubsystems().contains(subSysMod.getSubSystem()))
+```
+This could be rephrased without the comment as
+```java
+ArrayList moduleDependees = smodule.getDependSubsystems();
+String ourSubSystem = subSysMod.getSubSystem();
+if (moduleDependees.contains(ourSubSystem))
+```
+
+
+//Actions/////////////////////////
+# Position Markers
+
+   In general banners are clutter that should be eliminated.A banner is startling and obvious 
+   if you don’t see banners very often. So use them very sparingly, and only when the benefit is significant. 
+   If you overuse banners, they’ll fall into the background noise and be ignored.
+
+# Closing Brace Comments
+
+   If you find yourself wanting to mark your closing braces, try to shorten your functions instead.
+   
+```java
+
+    public class wc {
+public static void main(String[] args) {
+BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+String line;
+int lineCount = 0;
+int charCount = 0;
+int wordCount = 0;
+try{ while ((line = in.readLine()) != null) {
+lineCount++;
+charCount += line.length();
+String words[] = line.split("\\W");
+wordCount += words.length;
+} //while
+System.out.println("wordCount = " + wordCount);
+System.out.println("lineCount = " + lineCount);
+System.out.println("charCount = " + charCount);
+} // try
+catch (IOException e) {
+System.err.println("Error:" + e.getMessage());
+} //catch
+} //main
+}
+
+```
+# Attributions and Bylines
+/* Added by Rick */
+Source code control systems are very good at remembering who added what, when.
+There is no need to pollute the code with little bylines.
+Again, the source code control system is a better place for this kind of information.
+
+# Commented out Code
+  ```java
+  InputStreamResponse response = new InputStreamResponse();
+response.setBody(formatter.getResultStream(), formatter.getByteCount());
+// InputStream resultsStream = formatter.getResultStream();
+// StreamReader reader = new StreamReader(resultsStream);
+// response.setContent(reader.read(formatter.getByteCount()));
+```
+
+Others who see that commented-out code won’t have the courage to delete it. They’ll think
+it is there for a reason and is too important to delete. 
+
+Good source code control systems  will remember the code for us. We don’t have to comment it out any more. Just
+delete the code. We won’t lose it. Promise.
 
 ## References
 * Clean Code - ch4
